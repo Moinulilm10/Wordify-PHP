@@ -1,0 +1,8 @@
+*.env
+*.env.example
+*.env.local
+*.env.staging
+
+# Composer dependencies
+/vendor/
+composer.lock
