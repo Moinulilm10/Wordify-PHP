@@ -42,6 +42,7 @@
                         <h6>Didn&apos;t recive your verification email? <a href="#" class="text-decoration-none">Resend</a></h6>
                     </div>
                 </div>
+             <!-- hello  -->
             </div>
         </div>
     </div>
