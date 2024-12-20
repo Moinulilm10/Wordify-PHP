@@ -18,7 +18,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <h5 class="card-header">
-                        Login Form
+                        Login Form for login
                     </h5>
                     <div class="card-body">
                         <form>
@@ -42,7 +42,7 @@
                         <h6>Didn&apos;t recive your verification email? <a href="#" class="text-decoration-none">Resend</a></h6>
                     </div>
                 </div>
-             <!-- hello  -->
+                <!-- hello  -->
             </div>
         </div>
     </div>
