@@ -1,6 +1,9 @@
 <?php
+
 include_once 'include/header.php';
 include_once 'include/slider.php';
+
+
 ?>
 
 <section class="site-section py-sm">
@@ -152,5 +155,5 @@ include_once 'include/slider.php';
 </section>
 
 <?php
- include_once 'include/footer.php'
+include_once 'include/footer.php'
 ?>

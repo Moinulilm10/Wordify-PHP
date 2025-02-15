@@ -1,6 +1,7 @@
 <?php
 
-class Database{
+class Database
+{
     public $host = HOST;
     public $user = USER;
     public $password = PASSWORD;
@@ -14,19 +15,24 @@ class Database{
         $this->dbConnect();
     }
 
-    public function dbConnect(){
+    public function dbConnect()
+    {
         $this->link = mysqli_connect($this->host, $this->user, $this->password, $this->database);
 
-        if(!$this->link){
-            $this->error = 'database connection failed';
+        if (!$this->link) {
+            $this->error = 'Database connection failed: ' . mysqli_connect_error();
             return false;
+        } else {
+            return true;
         }
     }
 
+
     // select query
-    public function select($query){
-        $result = mysqli_query($this->link, $query) or die($this->link->error.__LINE__);
-        if (mysqli_num_rows($result)>0) {
+    public function select($query)
+    {
+        $result = mysqli_query($this->link, $query) or die($this->link->error . __LINE__);
+        if (mysqli_num_rows($result) > 0) {
             return $result;
         } else {
             return false;
@@ -66,4 +72,3 @@ class Database{
         }
     }
 }
-
