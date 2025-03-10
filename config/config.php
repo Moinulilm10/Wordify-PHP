@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-var_dump($_ENV['HOST'], $_ENV['USER'], $_ENV['PASSWORD'], $_ENV['DATABASE']);
+
 exit(); // Stop execution here to check output
 
 define('HOST', $_ENV['HOST']);

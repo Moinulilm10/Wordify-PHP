@@ -1,3 +1,13 @@
+<?php
+
+include_once '../classes/Register.php';
+$rs = new Register();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $addUser = $rs->addUser($_POST);
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -16,12 +26,36 @@
     <div class="container py-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
+                <span>
+                    <?php
+                    if (isset($addUser)) {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <?php $addUser; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </span>
                 <div class="card">
                     <h5 class="card-header">
                         Sign Up
                     </h5>
                     <div class="card-body">
-                        <form>
+                        <form action="" method="POST">
+
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="name" name="username" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="text" name="phone" class="form-control">
+                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Email address</label>
