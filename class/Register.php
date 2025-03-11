@@ -52,5 +52,3 @@ class Register
         }
     }
 }
-
-echo "hello";
