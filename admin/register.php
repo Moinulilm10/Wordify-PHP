@@ -1,12 +1,8 @@
 <?php
 
-include_once '../class/Register.php';
+// include_once '../class/Register.php';
 
-$test = new Register();
 
-echo "<pre>";
-var_dump($test);
-echo "</pre>";
 
 // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //     $addUser = $result->addUser($_POST);
