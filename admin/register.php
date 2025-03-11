@@ -1,12 +1,12 @@
 <?php
 
-// include_once '../class/Register.php';
+include_once '../class/Register.php';
 
 
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $addUser = $result->addUser($_POST);
-// }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $addUser = $result->addUser($_POST);
+}
 
 ?>
 
