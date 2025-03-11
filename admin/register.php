@@ -1,12 +1,16 @@
 <?php
 
-include_once '../classes/Register.php';
+include_once '../class/Register.php';
 
-$rs = new Register();
+$test = new Register();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $addUser = $rs->addUser($_POST);
-}
+echo "<pre>";
+var_dump($test);
+echo "</pre>";
+
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     $addUser = $result->addUser($_POST);
+// }
 
 ?>
 
@@ -27,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php if (isset($addUser)) { ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <?php echo $addUser; ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php } ?>
 
@@ -37,22 +41,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <form action="" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Username</label>
-                                <input type="text" name="username" class="form-control">
+                                <input type="text" name="username" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Phone</label>
-                                <input type="text" name="phone" class="form-control">
+                                <input type="text" name="phone" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Email address</label>
-                                <input type="email" name="email" class="form-control">
+                                <input type="email" name="email" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-control">
+                                <input type="password" name="password" class="form-control" required>
                             </div>
 
                             <button type="submit" class="btn btn-success">Sign Up</button>

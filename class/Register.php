@@ -16,7 +16,7 @@ class Register
 
     public function addUser($data)
     {
-        $name = $this->format->validation($data['name']);
+        $name = $this->format->validation($data['username']);
         $phone  = $this->format->validation($data['phone']);
         $email  = $this->format->validation($data['email']);
         $password  = $this->format->validation($data['password']);
@@ -31,7 +31,7 @@ class Register
         //     header("location:register.php");
         // }
 
-        if (empty($password)  || empty($email) || empty($name) || empty($password)) {
+        if (empty($phone)  || empty($email) || empty($name) || empty($password)) {
             $error = "field must not be empty";
             return $error;
         }
