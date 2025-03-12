@@ -22,8 +22,6 @@ class Register
         $password  = $this->format->validation($data['password']);
         $v_token = md5(rand());
 
-
-
         if (empty($phone)  || empty($email) || empty($username) || empty($password)) {
             $error = "field must not be empty";
             return $error;

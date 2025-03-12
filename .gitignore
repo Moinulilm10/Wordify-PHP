@@ -6,3 +6,4 @@
 # Composer dependencies
 /vendor/
 composer.lockvendor/
+.qodo
