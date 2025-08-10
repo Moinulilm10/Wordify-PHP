@@ -4,16 +4,21 @@ include_once '../config/config.php';
 
 class Database
 {
-    public $host = HOST;
-    public $user = USER;
-    public $password = PASSWORD;
-    public $database = DATABASE;
-
+    private $host;
+    private $user;
+    private $password;
+    private $database;
     public $link;
+
     public $error;
 
     public function __construct()
     {
+        $this->host = HOST;
+        $this->user = USER;
+        $this->password = PASSWORD;
+        $this->database = DATABASE;
+
         $this->dbConnect();
     }
 

@@ -1,17 +1,17 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include_once '../class/Register.php';
 
-require_once '../class/Register.php';
-
-$result = new Register();
+$re = new Register();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $addUser = $result->addUser($_POST);
-}
+    $name = $_POST['username'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-echo "Register page loaded successfully!<br>";
+    $addUser = $re->AddUser($name, $phone, $email, $password);
+}
 
 ?>
 

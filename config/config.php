@@ -1,21 +1,29 @@
 <?php
+// config.php
 
-// Include Composer autoloader
-require '../vendor/autoload.php';
+// Load Composer autoloader
+require __DIR__ . '/../vendor/autoload.php';
 
-// Load .env file
+// Load environment variables from .env
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-echo "HOST: " . $_ENV['HOST'] . "<br>";
-echo "USER: " . $_ENV['USER'] . "<br>";
-echo "PASSWORD: " . $_ENV['PASSWORD'] . "<br>";
-echo "DATABASE: " . $_ENV['DATABASE'] . "<br>";
 
 
-exit(); // Stop execution here to check output
 
+// Define constants from .env values
 define('HOST', $_ENV['HOST']);
-define('USER', $_ENV['USER']);
+define('USER', $_ENV['DB_USER']);
 define('PASSWORD', $_ENV['PASSWORD']);
 define('DATABASE', $_ENV['DATABASE']);
+
+// (Optional) Mail constants
+define('MAIL_HOST', $_ENV['MAIL_HOST']);
+define('MAIL_PORT', $_ENV['MAIL_PORT']);
+define('MAIL_USERNAME', $_ENV['MAIL_USERNAME']);
+define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD']);
+define('MAIL_FROM', $_ENV['MAIL_FROM']);
+define('MAIL_ENCRYPTION', $_ENV['MAIL_ENCRYPTION']);
+
+// (Optional) App config
+define('APP_URL', $_ENV['APP_URL']);
