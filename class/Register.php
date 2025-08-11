@@ -3,9 +3,14 @@
 include_once '../lib/Database.php';
 include_once '../helpers/Format.php';
 
-include_once '../PHPmailer/PHPMailer.php';
-include_once '../PHPmailer/SMTP.php';
-include_once '../PHPmailer/Exception.php';
+// Load dotenv before using $_ENV
+require_once __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+include_once '../lib/PHPmailer/PHPMailer.php';
+include_once '../lib/PHPmailer/Exception.php';
+include_once '../lib/PHPmailer/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -13,7 +18,6 @@ use PHPMailer\PHPMailer\Exception;
 
 class Register
 {
-
     public $db;
     public $fr;
 
@@ -23,38 +27,45 @@ class Register
         $this->fr = new Format();
     }
 
-
     public function AddUser($name, $phone, $email, $password)
     {
-
-        function sendemail_varifi($name, $email, $v_token)
+        function sendmail_verify($name, $email, $v_token)
         {
             $mail = new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->SMTPAuth = true;
 
-            $mail->Host  = 'smtp.gmail.com';
-            $mail->Username = 'moinulilm10@gmail.com';
-            $mail->Password  = '77262646211';
+            try {
+                $mail->isSMTP();
+                $mail->SMTPAuth = true;
 
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+                $mail->Host       = $_ENV['MAIL_HOST'];
+                $mail->Username   = $_ENV['MAIL_USERNAME'];
+                $mail->Password   = $_ENV['MAIL_PASSWORD'];
 
-            $mail->setFrom('moinulilm10@gmail.com', $name);
-            $mail->addAddress($email);
+                // Ensure correct encryption type
+                if (strtolower($_ENV['MAIL_ENCRYPTION']) === 'tls') {
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                } elseif (strtolower($_ENV['MAIL_ENCRYPTION']) === 'ssl') {
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                }
 
-            $mail->isHTML(true);
-            $mail->Subject = 'Email Varification From Web Master';
+                $mail->Port       = (int)$_ENV['MAIL_PORT'];
+                $mail->setFrom($_ENV['MAIL_FROM'], 'Wordify');
 
-            $email_template = "
-                    <h2>You have register with web master</h2>
-                    <h5>Verify your email address to login please click the link below</h5>
-                    <a href='http://localhost/pweb/admin/verifi-email.php?token=$v_token'>Click Here</a>
+                $mail->addAddress($email, $name);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Email Verification From Wordify';
+                $mail->Body = "
+                    <h2>You have registered with Wordify</h2>
+                    <h5>Verify your email address to login by clicking the link below</h5>
+                    <a href='{$_ENV['APP_URL']}/admin/verifi-email.php?token=$v_token'>Click Here</a>
                 ";
 
-            $mail->Body = $email_template;
-            $mail->send();
-            //echo "Email has benn sent";
+                $mail->send();
+                echo "Email has been sent";
+            } catch (Exception $e) {
+                echo "Email sending failed: {$mail->ErrorInfo}";
+            }
         }
 
         $name = $this->fr->validation($name);
@@ -63,30 +74,23 @@ class Register
         $password = $this->fr->validation(md5($password));
         $v_token = md5(rand());
 
-
         if (empty($name) || empty($phone) || empty($email) || empty($password)) {
-            $error = "Fild Must Not Be Empty";
-            return $error;
+            return "Field Must Not Be Empty";
         } else {
             $e_query = "SELECT * FROM users WHERE email='$email'";
             $check_email = $this->db->select($e_query);
 
             if ($check_email > '0') {
-                $error = "This Email Is Alrady Exisit";
-                return $error;
-                header("location:register.php");
+                return "This Email Is Already Exist";
             } else {
                 $insert_query = "INSERT INTO users(username, email, phone, password, v_token) VALUES('$name', '$email', '$phone', '$password', '$v_token')";
-
                 $insert_row = $this->db->insert($insert_query);
 
                 if ($insert_row) {
-                    sendemail_varifi($name, $email, $v_token);
-                    $success = "Resistration Successfull. Please check your email inbox for varifi email";
-                    return $success;
+                    sendmail_verify($name, $email, $v_token);
+                    return "Registration Successful. Please check your email inbox for verification email";
                 } else {
-                    $error = "Registration Failed";
-                    return $error;
+                    return "Registration Failed";
                 }
             }
         }
