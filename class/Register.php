@@ -58,7 +58,7 @@ class Register
                 $mail->Body = "
                     <h2>You have registered with Wordify</h2>
                     <h5>Verify your email address to login by clicking the link below</h5>
-                    <a href='{$_ENV['APP_URL']}/admin/verifi-email.php?token=$v_token'>Click Here</a>
+                    <a href='{$_ENV['APP_URL']}/admin/verify-email.php?token=$v_token'>Click Here</a>
                 ";
 
                 $mail->send();
